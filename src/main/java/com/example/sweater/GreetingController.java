@@ -3,6 +3,7 @@ package com.example.sweater;
 
 import com.example.sweater.domain.Message;
 import com.example.sweater.repos.MessageRepo;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,36 +14,26 @@ import java.util.Map;
 
 @Controller
 public class GreetingController {
-   @Autowired
-   private MessageRepo MessageRepo;
+    @Autowired
+    private MessageRepo messageRepo;
 
-    @GetMapping("/greeting")
-    public String greeting(
-            @RequestParam(name="name", required=false, defaultValue="World") String name,
-            @NotNull Map<String, Object> model)
-    {
-        model.put("name", name);
-        return "greeting";
-    }
- @GetMapping
+    @GetMapping
     public String main(Map<String, Object> model){
-        Iterable<Message> messages = MessageRepo.findAll();
+     Iterable<Message> messages = messageRepo.findAll();
 
-        model.put("messages", messages);
-
+     model.put("messages", messages);
         return "main";
  }
  @PostMapping
-    public String add(@RequestParam String text,@RequestParam String tag,
-         Map<String, Object> model) {
-    Message message = new Message(text, tag);
+    public String add(@RequestParam String text,@RequestParam String tag, Map<String, Object> model) {
+     Message message = new Message(text, tag);
 
-    MessageRepo.save(message);
+     messageRepo.save(message);
 
-     Iterable<Message> messages = MessageRepo.findAll();
+     Iterable<Message> messages = messageRepo.findAll();
 
      model.put("messages", messages);
 
-        return "main";
+     return "main";
  }
 }

@@ -10,9 +10,11 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     private String text;
     private String tag;
-    public Message() {
+
+    public Message(){
     }
 
     public Message(String text, String tag) {
@@ -20,6 +22,9 @@ public class Message {
         this.tag = tag;
     }
 
+    public void setText(String text){
+        this.text = text;
+    }
     public String getText() {
         return text;
     }
@@ -38,10 +43,5 @@ public class Message {
 
     public void setTag(String tag) {
         this.tag = tag;
-    }
-
-    public void setText(String text){
-        this.text=text;
-
     }
 }
